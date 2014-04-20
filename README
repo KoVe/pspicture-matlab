@@ -1,0 +1,7 @@
+Rescale data to log scale
+place it in .tex file
+compile with xelatex
+
+TODO:
+- add linearscale
+- add examples to README
