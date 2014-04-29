@@ -22,9 +22,35 @@ classdef pspicture < handle
             obj.psfigstr = strcat(obj.psfigstr,psfigstr);
         end
         
-        function addtext(obj,x,y,pos,psfigstr)
-            obj.psfigstr = strcat(obj.psfigstr,'\t\t\t\\rput[' ,pos, '](' ,num2str(x), ',' ,num2str(y), '){' ,psfigstr, '}\n' );
+        function addtext(obj,x,y,pos,text)
+            obj.psfigstr = strcat(obj.psfigstr,'\t\t\t\\rput[' ,pos, '](' ,num2str(x), ',' ,num2str(y), '){' ,text, '}\n' );
         end
+        
+        function addline(obj,x,y,style)
+            basestr = strcat('\t\t\t\\psline[linestyle=',style,',linewidth=\\LineWidth]');
+            obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata(x,y),'\n');
+        end
+        
+        function addaxis(obj,ox,oy,alx,aly)
+            basestr = '\t\t\t\\psline[linestyle=solid,linewidth=\\LineWidth]';
+            obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata([ox,ox,ox+alx],[oy+aly,oy,oy]),'\n');
+        end
+        
+        function adddots(obj,x,y,style)
+            basestr = strcat('\t\t\t\\psdots[showpoints=true,dotstyle=',style,',dotscale=0.75]');
+            obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata(x,y),'\n');
+        end
+        
+        function addxtick(obj,x,oy)
+            basestr = '\t\t\t\\psline[linestyle=solid,linewidth=\\LineWidth]';
+            obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata([x x],[oy oy-0.2]),'\n');
+        end
+        
+        function addytick(obj,ox,y)
+            basestr = '\t\t\t\\psline[linestyle=solid,linewidth=\\LineWidth]';
+            obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata([ox ox+0.2],[y y]),'\n');
+        end
+        
         
         function makepsfigure(obj, psfigname)
             fid = fopen(psfigname,'w+');
