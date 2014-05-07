@@ -36,8 +36,8 @@ classdef pspicture < handle
             obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata([ox,ox,ox+alx],[oy+aly,oy,oy]),'\n');
         end
         
-        function adddots(obj,x,y,style)
-            basestr = strcat('\t\t\t\\psdots[showpoints=true,dotstyle=',style,',dotscale=0.75]');
+        function adddots(obj,x,y,dotstyle,dotscale)
+            basestr = strcat('\t\t\t\\psdots[showpoints=true,dotstyle=',dotstyle,',dotscale=',num2str(dotscale),']');
             obj.psfigstr = strcat(obj.psfigstr,basestr,pspicture.printpsdata(x,y),'\n');
         end
         
